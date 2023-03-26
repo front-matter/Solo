@@ -1,32 +1,37 @@
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0">
-<channel>
-<title><![CDATA[ {{@site.title}} ]]></title>
-<description><![CDATA[ {{@site.description}} ]]></description>
-<link>{{@site.url}}</link>
-<image>
-    <url>{{@site.url}}/favicon.png</url>
-    <title>{{@site.title}}</title>
-    <link>{{@site.url}}</link>
-</image>
-<lastBuildDate>{{date format="ddd, DD MMM YYYY HH:mm:ss ZZ"}}</lastBuildDate>
-<atom:link href="{{@site.url}}/atom/" rel="self" type="application/rss+xml"/>
-<ttl>60</ttl>
+<?xml version="1.0" encoding="utf-8"?>
 
-{{#get "posts" limit="all" include="authors,tags"}}
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+	<title><![CDATA[ {{@site.title}} ]]></title>
+	<subtitle><![CDATA[ {{@site.description}} ]]></subtitle>
+	<link href="{{@site.url}}/atom/" rel="self" />
+	<link href="{{@site.url}}" />
+	<id>{{@site.url}}/</id>
+	<updated>{{date format="YYYY-MM-DDTHH:mm:ssZ"}}</updated>
+	
+	{{#get "posts" limit="15" page="1" order="published_at desc" include="authors,tags"}}
     {{#foreach posts}}
-    <item>
-        <title><![CDATA[ {{title}} ]]></title>
-        <description><![CDATA[ {{excerpt}} ]]></description>
-        <link>{{url absolute="true"}}</link>
-        <guid isPermaLink="true">{{canonical_url}}</guid>
-        <category><![CDATA[ {{primary_tag.name}} ]]></category>
-        <dc:creator><![CDATA[ {{#foreach authors}}{{#if @first}}{{name}}{{else}}, {{name}}{{/if}}{{/foreach}} ]]></dc:creator>
-        <pubDate>{{date format="ddd, DD MMM YYYY HH:mm:ss ZZ"}}</pubDate>
-        <media:content url="{{feature_image}}" medium="image"/>
-        <content:encoded><![CDATA[ {{content}} ]]></content:encoded>
-    </item>
+	<entry>
+		<title><![CDATA[ {{title}} ]]></title>
+		<link href="{{url absolute="true"}}" />
+		<id>{{canonical_url}}</id>
+        <published>{{published_at}}</published>
+		<updated>{{updated_at}}</updated>
+		{{#foreach tags}}
+		<category term="{{name}}"/>
+		{{/foreach}}
+		<summary>{{excerpt}}</summary>
+        <content type="xhtml">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+                {{content}}
+            </div>
+        </content>
+        {{#foreach authors}}
+		<author>
+			<name>{{name}}</name>
+		</author>
+        {{/foreach}}
+	</entry>
     {{/foreach}}
-{{/get}}
-
-</channel>
-</rss>
+    {{/get}}
+</feed>
