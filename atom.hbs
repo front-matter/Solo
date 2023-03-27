@@ -7,12 +7,15 @@
 	<link href="{{@site.url}}/atom/" rel="self" />
 	<link href="{{@site.url}}" />
 	<id>{{@site.url}}/</id>
+    <rights type="text">CC-BY-4.0</rights>
+    <language>{{@site.lang}}</language>
+    <generator uri="https://ghost.org" version="{{@blog.ghost_version}}">Ghost</generator>
 	<updated>{{date format="YYYY-MM-DDTHH:mm:ssZ"}}</updated>
 	
 	{{#get "posts" limit="15" page="1" order="published_at desc" include="authors,tags"}}
     {{#foreach posts}}
 	<entry>
-		<title><![CDATA[ {{title}} ]]></title>
+		<title>{{title}}</title>
 		<link href="{{url absolute="true"}}" />
 		<id>{{canonical_url}}</id>
         <published>{{published_at}}</published>
@@ -20,15 +23,14 @@
 		{{#foreach tags}}
 		<category term="{{name}}"/>
 		{{/foreach}}
-		<summary>{{excerpt}}</summary>
-        <content type="xhtml">
-            <div xmlns="http://www.w3.org/1999/xhtml">
-                {{content}}
-            </div>
+		<summary><![CDATA[ {{excerpt}} ]]></summary>
+        <content type="html">
+            {{content}}
         </content>
         {{#foreach authors}}
 		<author>
 			<name>{{name}}</name>
+			<uri>{{website}}</uri>
 		</author>
         {{/foreach}}
 	</entry>
