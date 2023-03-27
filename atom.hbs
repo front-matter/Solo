@@ -6,16 +6,16 @@
 	<subtitle><![CDATA[ {{@site.description}} ]]></subtitle>
 	<link href="{{@site.url}}/atom/" rel="self" />
 	<link href="{{@site.url}}" />
-	<id>{{@site.url}}/</id>
+    <id>{{@site.url}}/</id>
     <rights type="text">CC-BY-4.0</rights>
     <language>{{@site.locale}}</language>
-    <generator uri="https://ghost.org" version="{{@site.ghost_version}}">Ghost</generator>
+    <generator uri="https://ghost.org" version="5.40">Ghost</generator>
 	<updated>{{date format="YYYY-MM-DDTHH:mm:ssZ"}}</updated>
 	
 	{{#get "posts" limit="15" page="1" order="published_at desc" include="authors,tags"}}
     {{#foreach posts}}
 	<entry>
-		<title>{{title}}</title>
+		<title><![CDATA[ {{title}} ]]></title>
 		<link href="{{url absolute="true"}}" />
 		<id>{{canonical_url}}</id>
         <published>{{published_at}}</published>
