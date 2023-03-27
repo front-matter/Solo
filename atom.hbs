@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <feed xmlns="http://www.w3.org/2005/Atom">
-
-	<title><![CDATA[ {{@site.title}} ]]></title>
-	<subtitle><![CDATA[ {{@site.description}} ]]></subtitle>
-	<link href="{{@site.url}}/atom/" rel="self" />
-	<link href="{{@site.url}}" />
+    <title><![CDATA[ {{@site.title}} ]]></title>
+    <subtitle><![CDATA[ {{@site.description}} ]]></subtitle>
+    <link href="{{@site.url}}/atom/" rel="self" />
+    <link href="{{@site.url}}" />
     <id>{{@site.url}}/</id>
     <rights type="text">CC-BY-4.0</rights>
     <language>{{@site.locale}}</language>
     <generator uri="https://ghost.org" version="5.40">Ghost</generator>
-	<updated>{{date format="YYYY-MM-DDTHH:mm:ssZ"}}</updated>
+    <updated>{{date format="YYYY-MM-DDTHH:mm:ssZ"}}</updated>
 	
 	{{#get "posts" limit="15" page="1" order="published_at desc" include="authors,tags"}}
     {{#foreach posts}}
-	<entry>
+    <entry>
 		<title><![CDATA[ {{title}} ]]></title>
 		<link href="{{url absolute="true"}}" />
 		<id>{{canonical_url}}</id>
@@ -24,9 +22,7 @@
 		<category term="{{name}}"/>
 		{{/foreach}}
 		<summary><![CDATA[ {{excerpt}} ]]></summary>
-        <content type="html">
-            {{content}}
-        </content>
+        <content type="html"><![CDATA[ {{content}} ]]></content>
         {{#foreach authors}}
 		<author>
 			<name>{{name}}</name>
